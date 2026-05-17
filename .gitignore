@@ -1,0 +1,12 @@
+# Frontend
+frontend-vite/node_modules/
+frontend-vite/dist/
+
+# Backend
+__pycache__/
+*.pyc
+.env
+
+# General
+.DS_Store
+*.log
