@@ -32,10 +32,21 @@ Base = declarative_base()
 Session = sessionmaker(bind=engine)
 
 # ==================== WHISPER ====================
-print("🧠 Cargando modelo Whisper...")
-modelo = whisper.load_model("base")
-print("✅ Whisper cargado")
+import os
 
+print("🧠 Cargando modelo Whisper...")
+
+# Esto encuentra la carpeta exacta donde está corriendo este archivo de Python
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+RUTA_MODELO = os.path.join(BASE_DIR, "model", "whisper-base.pt")
+
+# Si el archivo físico existe, lo carga de ahí. Si no, baja el "base" original de internet.
+if os.path.exists(RUTA_MODELO):
+    modelo = whisper.load_model(RUTA_MODELO)
+else:
+    modelo = whisper.load_model("base")
+
+print("✅ Whisper cargado")
 # ==================== MODELO ====================
 class Formulario(Base):
     __tablename__ = 'formularios_nuevo'
