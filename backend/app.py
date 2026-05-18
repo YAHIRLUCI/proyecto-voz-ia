@@ -38,13 +38,13 @@ print("🧠 Cargando modelo Whisper...")
 
 # Esto encuentra la carpeta exacta donde está corriendo este archivo de Python
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-RUTA_MODELO = os.path.join(BASE_DIR, "model", "whisper-base.pt")
+RUTA_MODELO = os.path.join(BASE_DIR, "model", "whisper-tiny.pt") # <-- Cambiado a tiny
 
-# Si el archivo físico existe, lo carga de ahí. Si no, baja el "base" original de internet.
+# Si el archivo físico existe, lo carga de ahí. Si no, baja el "tiny" original de internet.
 if os.path.exists(RUTA_MODELO):
     modelo = whisper.load_model(RUTA_MODELO)
 else:
-    modelo = whisper.load_model("base")
+    modelo = whisper.load_model("tiny") # <-- Cambiado a tiny
 
 print("✅ Whisper cargado")
 # ==================== MODELO ====================
