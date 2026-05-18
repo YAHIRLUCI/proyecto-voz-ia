@@ -218,8 +218,12 @@ def serve_frontend(path):
 
 # ==================== INICIO ====================
 if __name__ == "__main__":
-    print("🚀 Servidor corriendo en http://127.0.0.1:5000")
-    app.run(debug=True, port=5000)
+    # Railway asigna un puerto dinámico en la variable de entorno PORT. Si no existe, usa el 5000.
+    puerto = int(os.getenv("PORT", 5000))
+    print(f"🚀 Servidor corriendo en el puerto {puerto}")
+    
+    # IMPORTANTE: debug=False para que no se cicle al descargar el modelo de Whisper
+    app.run(host="0.0.0.0", port=puerto, debug=False)
 # ==================== SERVIR FRONTEND ====================
 # from flask import send_from_directory
 
