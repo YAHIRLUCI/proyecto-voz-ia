@@ -220,3 +220,14 @@ def serve_frontend(path):
 if __name__ == "__main__":
     print("🚀 Servidor corriendo en http://127.0.0.1:5000")
     app.run(debug=True, port=5000)
+# ==================== SERVIR FRONTEND ====================
+# from flask import send_from_directory
+
+# # Servir archivos estáticos del frontend
+# @app.route('/', defaults={'path': ''})
+# @app.route('/<path:path>')
+# def serve_frontend(path):
+#     if path != "" and os.path.exists(os.path.join('dist', path)):
+#         return send_from_directory('dist', path)
+#     else:
+#         return send_from_directory('dist', 'index.html')
