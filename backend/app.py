@@ -5,15 +5,19 @@ from sqlalchemy.orm import declarative_base, sessionmaker
 from datetime import datetime
 import whisper
 import os
+from dotenv import load_dotenv  # <-- Agregado para leer variables
 
 app = Flask(__name__)
 CORS(app)
 
-# ==================== CONFIGURACIÓN ====================
-DB_USER = "root"
-DB_PASS = ""          # Pon tu contraseña si tienes
-DB_HOST = "localhost"
-DB_NAME = "progweb2025"
+# ==================== CONFIGURACIÓN DINÁMICA ====================
+load_dotenv()  # <-- Carga tu archivo .env local si existe
+
+# os.getenv busca las variables de Railway. Si no existen (en tu compu), usa los valores por defecto.
+DB_USER = os.getenv("DB_USER", "root")
+DB_PASS = os.getenv("DB_PASSWORD", "")  # Se conecta con el DB_PASSWORD que pusiste en Railway
+DB_HOST = os.getenv("DB_HOST", "localhost")
+DB_NAME = os.getenv("DB_NAME", "progweb2025")
 
 DATABASE_URL = f"mysql+mysqlconnector://{DB_USER}:{DB_PASS}@{DB_HOST}/{DB_NAME}"
 
@@ -191,7 +195,6 @@ def voz():
 
 # ==================== SERVIR FRONTEND ====================
 from flask import send_from_directory
-import os
 
 # Servir archivos estáticos del frontend
 @app.route('/', defaults={'path': ''})
@@ -201,6 +204,7 @@ def serve_frontend(path):
         return send_from_directory('dist', path)
     else:
         return send_from_directory('dist', 'index.html')
+
 # ==================== INICIO ====================
 if __name__ == "__main__":
     print("🚀 Servidor corriendo en http://127.0.0.1:5000")
